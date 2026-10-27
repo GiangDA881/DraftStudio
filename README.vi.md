@@ -25,20 +25,6 @@ Không engine nào bị giả lập: thiếu engine thì lệnh báo lỗi và c
 | `capcut_draft_app.exe` | CLI + MCP server (`capcut_draft_app.exe mcp`) cho Claude Desktop / Cursor / Antigravity |
 | craft CLI | `{vectorcraft,effectcraft,filmcraft}-cli.exe`. Bản zip phát hành đã kèm sẵn trong `crafts/` (giấy phép ở `crafts/licenses/`). Tự dò theo thứ tự: đường dẫn trong Cài đặt → biến môi trường `VECTORCRAFT_CLI`… → thư mục `crafts/` cạnh app → cạnh app → `PATH` → thư mục craft_engines (Cài đặt hoặc biến `CRAFT_ENGINES_DIR`) |
 
-## Access key
-
-Mỗi máy cần một access key. Mỗi thành viên nhóm Zalo được gửi riêng một key dạng `DS-XXXX-XXXX-XXXX-XXXX`.
-
-- **Kích hoạt**: mở `DraftStudio.exe` rồi dán key vào màn hình đầu tiên, hoặc chạy `capcut_draft_app activate DS-XXXX-XXXX-XXXX-XXXX`, hoặc đưa key cho agent (tool MCP `capcut_activate`). Kích hoạt một lần là app, dòng lệnh và MCP đều dùng được. Chữ thường, dấu cách, thiếu gạch nối đều được chấp nhận.
-- Key lưu ở `%APPDATA%\CapCutDraftStudio\license.json`. Gỡ trong Cài đặt → Access key hoặc `capcut_draft_app deactivate`. Biến môi trường `DRAFT_STUDIO_KEY` cũng kích hoạt được (tiện cho cấu hình MCP).
-- Chưa kích hoạt: app chỉ hiện ô nhập key, lệnh CLI báo lỗi, tool MCP trả lỗi (trừ `capcut_get_status` và `capcut_activate`).
-
-Cho người phát key:
-
-- App chỉ chứa mã băm SHA-256 của các key đã phát (`crates/core/keys/access_keys.bin`), không chứa key. Key gốc nằm trong file CSV trên máy người phát: sao lưu file đó, mất là không lấy lại được.
-- Thêm key: `cargo run -p capcut-core --example keygen -- --count 500 --out <thư mục ngoài mã nguồn> --append`, rồi build lại và gửi bản mới. Không có `--append` thì công cụ không ghi đè danh sách cũ (ghi đè sẽ vô hiệu hóa mọi key đã phát).
-- Kiểm tra offline, không có máy chủ: một key dùng được trên nhiều máy. Ghi lại ai nhận key nào (cột "Người nhận" trong CSV); Cài đặt của app hiện 4 ký tự cuối của key để tra.
-
 ## Draft CapCut được tạo ra
 
 - **Track hình chính**: ảnh/video nối tiếp; Ken Burns (zoom) và lia trái/phải/lên/xuống bằng keyframe `KFTypeScale*` / `KFTypePosition*`.
@@ -93,7 +79,7 @@ Spec v1 (`video_clips`, `bgm_tracks`) vẫn đọc được. Overlay có `kind` 
 { "mcpServers": { "draft-studio": { "command": "C:\\path\\to\\capcut_draft_app.exe", "args": ["mcp"] } } }
 ```
 
-Tool: `capcut_get_status`, `capcut_list_drafts`, `capcut_get_draft`, `capcut_build_project`, `capcut_create_draft` (v1), `capcut_quick_slideshow`, `capcut_repair_draft`, `craft_list_templates`, `vectorcraft_render_graphic`, `effectcraft_render_motion`, `filmcraft_probe`. Giao diện và agent gọi cùng một hàm (`capcut_core::mcp::call_tool`).
+Tool: `capcut_get_status`, `capcut_list_drafts`, `capcut_get_draft`, `capcut_live_edit`, `capcut_build_project`, `capcut_create_draft` (v1), `capcut_quick_slideshow`, `capcut_repair_draft`, `craft_list_templates`, `vectorcraft_render_graphic`, `effectcraft_render_motion`, `filmcraft_probe`. Giao diện và agent gọi cùng một hàm (`capcut_core::mcp::call_tool`).
 
 ### Xem agent dựng trực tiếp
 

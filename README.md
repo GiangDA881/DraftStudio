@@ -19,12 +19,17 @@ cuts, Ken Burns moves, titles, lower thirds, motion graphics, music that ducks u
   keyframes.
 - **Narration sections**: give each voiceover its clips and photos; their lengths are fitted to the
   voice automatically and every section cut lands exactly on its voice start (details below).
-- **Graphics** drawn by [VectorCraft](https://github.com/storytold/vectorcraft) as transparent PNGs:
-  `lower_third`, `chapter_title`, `quote_card`, `location_tag`, `headline_bar`, `fact_box`,
-  `subscribe`, `end_card`.
+- **Graphics** drawn by [VectorCraft](https://github.com/storytold/vectorcraft) as transparent PNGs
+  (20 templates): `lower_third`, `chapter_title`, `quote_card`, `location_tag`, `headline_bar`,
+  `subtitle`, `fact_box`, `subscribe`, `end_card`, `car_spec_hud`, `vs_compare`, `breaking_banner`,
+  `price_tag`, `neon_title`, `step_callout`, `stat_bar`, `social_handle`, `minimal_corner`,
+  `top_list_badge`, `cinematic_letterbox`.
 - **Motion** rendered by [EffectCraft](https://github.com/storytold/effectcraft) as alpha video
-  (ProRes 4444 `.mov` or WebM): `fade`, `slide_left`, `slide_right`, `rise`, `pop`, `blur_in`,
-  `wipe`, `drift`.
+  (ProRes 4444 `.mov` or WebM): 70 motion, kinetic text, transition & background presets (`fade`,
+  `slide_left`, `slide_right`, `rise`, `pop`, `blur_in`, `wipe`, `drift`, `glow_pop`, `light_sweep`,
+  `typewriter`, `neon_hud`, …) plus 307 After Effects layer effects (`ec.*`).
+- **FilmCraft FX**: 112 video transitions, 26 Creative Look LUTs & Lumetri presets, 139 video effects
+  & animated presets, and 61 audio effects & transitions.
 - **Music**: loops to the end, fades in and out, ducks under the voice with volume keyframes.
 - **CapCut integration**: the draft appears at the top of CapCut's Projects tab; rebuilding a draft
   with the same name moves the old one to a backup folder (CapCut keeps a live copy and would ignore
@@ -70,31 +75,6 @@ set in Settings → `VECTORCRAFT_CLI` / `EFFECTCRAFT_CLI` / `FILMCRAFT_CLI` envi
 `crafts/` next to the app → next to the app → `PATH` → a craft engines folder (Settings, or the
 `CRAFT_ENGINES_DIR` environment variable) holding the cloned repositories.
 
-## Access key
-
-Each machine needs an access key (`DS-XXXX-XXXX-XXXX-XXXX`); members of the author's Zalo group
-get one each.
-
-- **Activate**: paste the key into the first screen of `DraftStudio.exe`, or run
-  `capcut_draft_app activate DS-XXXX-XXXX-XXXX-XXXX`, or give it to your agent (MCP tool
-  `capcut_activate`). One activation covers the app, the CLI and MCP. Case, spaces and missing
-  dashes do not matter.
-- The key is kept in `%APPDATA%\CapCutDraftStudio\license.json`; remove it in Settings → Access key
-  or with `capcut_draft_app deactivate`. `DRAFT_STUDIO_KEY` in the environment also activates
-  (handy in an MCP config).
-- Until then the app shows only the key prompt, CLI commands stop with an error and MCP tools return
-  one (except `capcut_get_status` and `capcut_activate`).
-
-For whoever hands out keys:
-
-- The app holds only SHA-256 digests of the issued keys (`crates/core/keys/access_keys.bin`), never
-  the keys. The keys are in a CSV on the issuer's machine: back it up, a lost key cannot be recovered.
-- More keys: `cargo run -p capcut-core --example keygen -- --count 500 --out <folder outside the source> --append`,
-  then rebuild and ship. Without `--append` the tool refuses to replace the list, which would turn off
-  every key already handed out.
-- The check is offline, with no server, so a key works on any number of machines. Note who got which
-  key (the CSV has a column for it); Settings shows the last 4 characters of the key in use.
-
 ## Use it
 
 ### Desktop app
@@ -123,9 +103,10 @@ capcut_draft_app probe C:/media/clip.mp4
 { "mcpServers": { "draft-studio": { "command": "C:\\path\\to\\capcut_draft_app.exe", "args": ["mcp"] } } }
 ```
 
-Tools: `capcut_get_status`, `capcut_list_drafts`, `capcut_get_draft`, `capcut_build_project`,
-`capcut_create_draft` (v1 field names), `capcut_quick_slideshow`, `capcut_repair_draft`,
-`craft_list_templates`, `vectorcraft_render_graphic`, `effectcraft_render_motion`, `filmcraft_probe`.
+Tools: `capcut_get_status`, `capcut_list_drafts`, `capcut_get_draft`, `capcut_live_edit`,
+`capcut_build_project`, `capcut_create_draft` (v1 field names), `capcut_quick_slideshow`,
+`capcut_repair_draft`, `craft_list_templates`, `vectorcraft_render_graphic`,
+`effectcraft_render_motion`, `filmcraft_probe`.
 
 ### Watch an agent build live
 
