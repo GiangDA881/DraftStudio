@@ -1,0 +1,20 @@
+[package]
+name = "capcut-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "CapCut PC draft engine + bridges to VectorCraft, EffectCraft and FilmCraft"
+
+[dependencies]
+serde.workspace = true
+serde_json.workspace = true
+uuid.workspace = true
+anyhow.workspace = true
+chrono.workspace = true
+walkdir.workspace = true
+sha2 = "0.10"
+
+[dev-dependencies]
+getrandom = "0.3"

@@ -1,0 +1,50 @@
+{
+  "project_name": "Example - Narrated sections",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "sections": [
+    {
+      "desc": "Intro",
+      "voice": {"path": "C:/media/voice/01_intro.mp3"},
+      "scenes": [
+        {"path": "C:/media/clips/city_night.mp4", "volume": 0},
+        {"path": "C:/media/clips/crowd.mp4", "volume": 0, "trim_start_sec": 1.5},
+        {"path": "C:/media/photos/archive_1925.jpg", "ken_burns": true, "zoom_end": 1.08}
+      ]
+    },
+    {
+      "desc": "Portrait",
+      "voice": {"path": "C:/media/voice/02_portrait.mp3"},
+      "gap_after_sec": 0.8,
+      "scenes": [
+        {"path": "C:/media/photos/portrait.jpg", "duration_sec": 6, "ken_burns": true, "pan": "right"},
+        {"path": "C:/media/clips/desk.mp4", "volume": 0},
+        {"path": "C:/media/clips/window.mp4", "volume": 0}
+      ]
+    },
+    {
+      "desc": "Outro",
+      "voice": {"path": "C:/media/voice/03_outro.mp3"},
+      "scenes": [
+        {"path": "C:/media/clips/shore.mp4", "volume": 0},
+        {"path": "C:/media/photos/sunset.jpg", "ken_burns": true, "pan": "left"}
+      ]
+    }
+  ],
+  "overlays": [
+    {"kind": "motion", "section": 0, "start_sec": 0.4, "duration_sec": 4.5,
+     "graphic": {"template": "chapter_title", "fields": {"kicker": "EPISODE 1", "title": "The Perfect Trap", "subtitle": "Why perfectionism punishes us"}, "accent": "#E8B04B"},
+     "motion": {"preset": "blur_in"}},
+    {"kind": "motion", "section": 1, "start_sec": 0.6, "duration_sec": 5,
+     "graphic": {"template": "lower_third", "fields": {"name": "Alfred Adler", "role": "Inferiority and overcompensation"}},
+     "motion": {"preset": "slide_left"}},
+    {"kind": "graphic", "section": 2, "start_sec": 1.0, "duration_sec": 4, "fade_in_sec": 0.4, "fade_out_sec": 0.4,
+     "graphic": {"template": "quote_card", "fields": {"quote": "We suffer more often in imagination than in reality.", "author": "Seneca"}}}
+  ],
+  "bgm": [
+    {"path": "C:/media/music/ambient.mp3", "volume": 0.3, "fade_in_sec": 1.0, "fade_out_sec": 2.5, "loop_to_fill": true, "duck_under_voice": true, "duck_ratio": 0.4}
+  ],
+  "register_to_capcut": true,
+  "film_preview": false
+}

@@ -1,0 +1,26 @@
+{
+  "project_name": "Example - Photo slideshow",
+  "width": 1080,
+  "height": 1920,
+  "fps": 30,
+  "scenes": [
+    {"path": "C:/media/photos/01.jpg", "ken_burns": true, "pan": "none"},
+    {"path": "C:/media/photos/02.jpg", "ken_burns": true, "pan": "right"},
+    {"path": "C:/media/photos/03.jpg", "ken_burns": true, "pan": "up"},
+    {"path": "C:/media/photos/04.jpg", "ken_burns": true, "pan": "left"}
+  ],
+  "voiceovers": [
+    {"path": "C:/media/voice/narration.mp3"}
+  ],
+  "fit_scenes_to_voice": true,
+  "overlays": [
+    {"kind": "motion", "start_sec": 0.3, "duration_sec": 3.5,
+     "graphic": {"template": "location_tag", "fields": {"place": "Kyoto, Japan", "date": "Spring 2026"}},
+     "motion": {"preset": "rise"}, "y": -0.55}
+  ],
+  "bgm": [
+    {"path": "C:/media/music/lofi.mp3", "volume": 0.25}
+  ],
+  "register_to_capcut": true,
+  "film_preview": false
+}

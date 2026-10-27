@@ -1,0 +1,18 @@
+/target/
+/dist/
+/apps/studio/gen/schemas/
+/_v1_backup/
+*.exe
+
+# Private specs: they point at the author's own footage, voices and music.
+/examples/demo_seneca.json
+/examples/pilot_spec.json
+/examples/test_e06_*.json
+/examples/make_test_e06_remake.py
+
+# Access keys are handed out one by one: only their digests (crates/core/keys/access_keys.bin) belong here.
+draft_studio_keys*.csv
+
+# The app icons are needed to build, even where a parent .gitignore drops images.
+!/apps/studio/icons/*
+!/apps/studio/ui/icon.png

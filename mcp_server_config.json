@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "draft-studio": {
+      "command": "C:\\path\\to\\capcut_draft_app.exe",
+      "args": ["mcp"]
+    }
+  }
+}

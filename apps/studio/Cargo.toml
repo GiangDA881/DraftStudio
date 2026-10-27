@@ -1,0 +1,30 @@
+[package]
+name = "capcut-studio"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Draft Studio — desktop app (Tauri window over a local axum server)"
+
+[[bin]]
+name = "DraftStudio"
+path = "src/main.rs"
+
+[dependencies]
+capcut-core.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+anyhow.workspace = true
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "net", "time"] }
+axum = "0.7"
+futures-util = { version = "0.3", default-features = false, features = ["alloc"] }
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5", features = ["fs"] }
+rust-embed = "8"
+mime_guess = "2"
+rfd = { version = "0.15", default-features = false }
+tauri = { version = "2", features = [] }
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }

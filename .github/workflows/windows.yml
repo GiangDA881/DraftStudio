@@ -1,0 +1,58 @@
+name: windows
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Test core
+        run: cargo test -p capcut-core
+
+      - name: Build release binaries
+        run: cargo build --release -p capcut-draft-cli -p capcut-studio
+
+      - name: Package
+        shell: pwsh
+        run: |
+          $v = "${{ github.ref_name }}" -replace '[^\w.-]', '-'
+          $d = "dist/DraftStudio"
+          New-Item -ItemType Directory "$d/crafts", "$d/examples", "$d/skills" -Force | Out-Null
+          Copy-Item target/release/DraftStudio.exe, target/release/capcut_draft_app.exe, LICENSE, THIRD_PARTY_NOTICES.md, README.md, README.vi.md $d
+          if (Test-Path target/release/WebView2Loader.dll) { Copy-Item target/release/WebView2Loader.dll $d }
+          Copy-Item examples/narrated_sections.json, examples/slideshow.json "$d/examples"
+          if (Test-Path skills/draft-studio) { Copy-Item skills/draft-studio "$d/skills/draft-studio" -Recurse -Force }
+          Set-Content "$d/crafts/PUT_CRAFT_CLIS_HERE.txt" "Put vectorcraft-cli.exe, effectcraft-cli.exe and filmcraft-cli.exe in this folder (see README)."
+          Compress-Archive $d "dist/DraftStudio-$v-windows-x64.zip"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DraftStudio-windows-x64
+          path: dist/*.zip
+
+  release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: DraftStudio-windows-x64
+      - name: Publish GitHub release
+        run: gh release create "$GITHUB_REF_NAME" *.zip --repo "$GITHUB_REPOSITORY" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}
