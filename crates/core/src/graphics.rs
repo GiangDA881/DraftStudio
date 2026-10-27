@@ -655,10 +655,10 @@ fn end_card(c: &Ctx, channel: &str, tagline: &str, next_label: &str, next_title:
 
 fn car_spec_hud(c: &Ctx, model: &str, hp: &str, speed: &str, note: &str) -> String {
     let u = c.u;
-    let pw = 560.0 * u;
+    let pw = if c.h > c.w { 820.0 * u } else { 560.0 * u };
     let ph = 210.0 * u;
-    let x = c.w - pw - 86.0 * u;
-    let y = c.h - c.bottom(120.0) - ph;
+    let x = if c.h > c.w { (c.w - pw) / 2.0 } else { c.w - pw - 86.0 * u };
+    let y = if c.h > c.w { c.h * 0.12 } else { c.h - c.bottom(120.0) - ph };
     format!(
         r##"<rect x="{x:.1}" y="{y:.1}" width="{pw:.1}" height="{ph:.1}" rx="{r:.1}" fill="#0A0E17" fill-opacity="0.88" stroke="{a}" stroke-width="{sw:.1}"/>
 <rect x="{x:.1}" y="{y:.1}" width="{bw:.1}" height="{ph:.1}" fill="{a}"/>
@@ -680,7 +680,7 @@ fn car_spec_hud(c: &Ctx, model: &str, hp: &str, speed: &str, note: &str) -> Stri
 fn vs_compare(c: &Ctx, lt: &str, lv: &str, rt: &str, rv: &str) -> String {
     let u = c.u;
     let cx = c.w / 2.0;
-    let cy = c.h / 2.0;
+    let cy = if c.h > c.w { c.h * 0.18 } else { c.h / 2.0 };
     let bw = 560.0 * u;
     let bh = 220.0 * u;
     let lx = cx - bw - 48.0 * u;
@@ -779,10 +779,10 @@ fn neon_title(c: &Ctx, top: &str, main: &str, bottom: &str) -> String {
 
 fn step_callout(c: &Ctx, step: &str, title: &str, detail: &str) -> String {
     let u = c.u;
-    let x = 84.0 * u;
-    let y = 78.0 * u;
-    let pw = 640.0 * u;
+    let pw = if c.h > c.w { 860.0 * u } else { 640.0 * u };
     let ph = 148.0 * u;
+    let x = if c.h > c.w { (c.w - pw) / 2.0 } else { 84.0 * u };
+    let y = if c.h > c.w { c.h * 0.13 } else { 78.0 * u };
     format!(
         r##"<rect x="{x:.1}" y="{y:.1}" width="{pw:.1}" height="{ph:.1}" rx="{r:.1}" fill="url(#panel)"/>
 <rect x="{x:.1}" y="{y:.1}" width="{bw:.1}" height="{ph:.1}" rx="{r:.1}" fill="{a}"/>
@@ -800,10 +800,10 @@ fn step_callout(c: &Ctx, step: &str, title: &str, detail: &str) -> String {
 
 fn stat_bar(c: &Ctx, label: &str, percent: &str, note: &str) -> String {
     let u = c.u;
-    let x = 96.0 * u;
-    let pw = 680.0 * u;
+    let pw = if c.h > c.w { 840.0 * u } else { 680.0 * u };
     let ph = 154.0 * u;
-    let y = c.h - c.bottom(130.0) - ph;
+    let x = if c.h > c.w { (c.w - pw) / 2.0 } else { 96.0 * u };
+    let y = if c.h > c.w { c.h * 0.13 } else { c.h - c.bottom(130.0) - ph };
     let pct_num: f64 = percent.trim_end_matches('%').trim().parse().unwrap_or(85.0);
     let bar_w = (pw - 64.0 * u) * (pct_num.clamp(5.0, 100.0) / 100.0);
     format!(
